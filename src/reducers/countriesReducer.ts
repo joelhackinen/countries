@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Country, CountryRaw } from "../types";
+import { ICountry, ICountryRaw } from "../types";
 import { AppDispatch } from "../store";
-import { getAll } from "../services/countryService";
+import { getAll } from "../services/countriesService";
 
-const initialState: Country[] = [];
+const initialState: ICountry[] = [];
 
 const countriesSlice = createSlice({
   name: 'countries',
@@ -19,7 +19,7 @@ export const { setCountries } = countriesSlice.actions;
 
 export const initializeCountries = () => {
   return async (dispatch: AppDispatch) => {
-    let countriesData: CountryRaw[];
+    let countriesData: ICountryRaw[];
     try {
       countriesData = await getAll();
     } catch (e) {

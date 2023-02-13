@@ -17,7 +17,7 @@ interface Languages {
   [key: string]: string;
 }
 
-export interface Country {
+export interface ICountry {
   name: Name;
   region: Region;
   population: number;
@@ -25,11 +25,16 @@ export interface Country {
   flag: Flag;
 }
 
-export interface CountryRaw {
+export interface ICountryRaw {
   name: Name;
   region: string;
   subregion: string;
   population: number;
   languages?: Languages;
   flags: Flag
+}
+
+export interface fieldProps {
+  type: "number" | "text";
+  placeholder?: string;
 }
