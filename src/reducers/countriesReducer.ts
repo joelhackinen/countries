@@ -1,7 +1,7 @@
-import axios from "axios";
 import { createSlice } from "@reduxjs/toolkit";
-import { Country, CountryRaw } from "../hooks";
+import { Country, CountryRaw } from "../types";
 import { AppDispatch } from "../store";
+import { getAll } from "../services/countryService";
 
 const initialState: Country[] = [];
 
@@ -19,17 +19,21 @@ export const { setCountries } = countriesSlice.actions;
 
 export const initializeCountries = () => {
   return async (dispatch: AppDispatch) => {
-    axios.get<CountryRaw[]>("https://restcountries.com/v3.1/all")
-      .then(res => {
-        const cs: Country[] = res.data.map(c => ({
-          name: c.name,
-          region: { region: c.region, subregion: c.subregion },
-          population: c.population,
-          languages: c.languages,
-          flag: c.flags
-        }));
-        dispatch(setCountries(cs));
-      })
+    let countriesData: CountryRaw[];
+    try {
+      countriesData = await getAll();
+    } catch (e) {
+      return;
+    }
+    dispatch(setCountries(countriesData
+      .map(c => ({
+        name: c.name,
+        region: { region: c.region, subregion: c.subregion },
+        population: c.population,
+        languages: c.languages,
+        flag: c.flags
+      }))
+    ));
   };
 };
 
