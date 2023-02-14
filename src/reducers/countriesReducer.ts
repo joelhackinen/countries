@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ICountry, ICountryRaw } from "../types";
 import { AppDispatch } from "../store";
 import { getAll } from "../services/countriesService";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState: ICountry[] = [];
 
@@ -27,10 +28,11 @@ export const initializeCountries = () => {
     }
     dispatch(setCountries(countriesData
       .map(c => ({
-        name: c.name,
-        region: { region: c.region, subregion: c.subregion },
+        id: uuidv4(),
+        name: c.name.common,
+        region: c.region,
         population: c.population,
-        languages: c.languages,
+        languages: c.languages && Object.values(c.languages),
         flag: c.flags
       }))
     ));

@@ -3,25 +3,21 @@ interface Name {
   official: string;
 }
 
-interface Flag {
+export interface Flag {
   svg: string;
   alt: string;
 }
 
-interface Region {
-  region: string;
-  subregion: string;
-}
-
-interface Languages {
+export interface Languages {
   [key: string]: string;
 }
 
 export interface ICountry {
-  name: Name;
-  region: Region;
+  id: string;
+  name: string;
+  region: string;
   population: number;
-  languages?: Languages;
+  languages?: string[];
   flag: Flag;
 }
 
@@ -36,5 +32,5 @@ export interface ICountryRaw {
 
 export interface fieldProps {
   type: "number" | "text";
-  placeholder?: string;
+  label?: string;
 }

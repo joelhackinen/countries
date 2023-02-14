@@ -1,4 +1,3 @@
-import { Col, ListGroup, Row } from "react-bootstrap";
 import { ICountry } from "../types";
 
 const Country = ({ country }: { country: ICountry}) => {
@@ -7,8 +6,8 @@ const Country = ({ country }: { country: ICountry}) => {
   return (
     <tr>
       <td><img src={flag.svg} height='100' alt={flag.alt}/></td>
-      <td>{name.common}</td>
-      <td>{region.region}</td>
+      <td>{name}</td>
+      <td>{region}</td>
       <td>{population}</td>
       <td>
         {languages && "languages"}
@@ -18,6 +17,7 @@ const Country = ({ country }: { country: ICountry}) => {
           </ul>
         }
       </td>
+      <td><button>Show Details</button></td>
     </tr>
   );
 };

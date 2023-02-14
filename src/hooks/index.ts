@@ -19,7 +19,7 @@ export const useCountries = () => {
   }, []);
 };
 
-export const useField = ({ type, placeholder="" }: fieldProps) => {
+export const useField = ({ type, label="" }: fieldProps) => {
   const [value, setValue] = useState<string>("");
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +28,7 @@ export const useField = ({ type, placeholder="" }: fieldProps) => {
 
   return {
     type,
-    placeholder,
+    label,
     value,
     onChange
   };
