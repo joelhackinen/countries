@@ -1,4 +1,4 @@
-interface Name {
+export interface Name {
   common: string;
   official: string;
 }
@@ -12,13 +12,23 @@ export interface Languages {
   [key: string]: string;
 }
 
-export interface ICountry {
-  id: string;
-  name: string;
+export interface Region {
   region: string;
+  subregion: string;
+}
+
+interface Coordinates {
+  lat: number;
+  lng: number;
+}
+
+export interface ICountry {
+  name: Name;
+  region: Region;
   population: number;
   languages?: string[];
   flag: Flag;
+  coordinates: Coordinates;
 }
 
 export interface ICountryRaw {
@@ -27,7 +37,8 @@ export interface ICountryRaw {
   subregion: string;
   population: number;
   languages?: Languages;
-  flags: Flag
+  flags: Flag;
+  latlng: number[];
 }
 
 export interface fieldProps {

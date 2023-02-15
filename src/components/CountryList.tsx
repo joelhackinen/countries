@@ -9,50 +9,52 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TextField from "@mui/material/TextField";
 import TableRow from '@mui/material/TableRow';
-import { Flag } from "../types";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Flag, Name, Region } from "../types";
+import { Link } from "react-router-dom";
 
 interface Column {
   id: 'flag' | 'name' | 'region' | 'population' | 'languages';
   label: string;
   minWidth?: number;
   align?: 'right';
-  format: (value: any) => JSX.Element;
+  // eslint-disable-next-line
+  format?: (value: any) => JSX.Element | null;
 }
 
 const columns: readonly Column[] = [
   {
     id: 'flag',
     label: 'Flag',
-    minWidth: 170,
+    minWidth: 160,
     format: (value: Flag) => <img src={value.svg} height='100' alt={value.alt}/>
   },
   {
     id: 'name',
     label: 'Name',
-    minWidth: 100,
+    minWidth: 80,
     align: "right",
-    format: (value: string) => <span>{value}</span>
+    format: (value: Name) => <>{value.common}</>
   },
   {
     id: 'region',
     label: 'Region',
-    minWidth: 170,
+    minWidth: 150,
     align: 'right',
-    format: (value: string) => <span>{value}</span>
+    format: (value: Region) => <>{value.region}</>
   },
   {
     id: 'population',
     label: 'Population',
-    minWidth: 170,
+    minWidth: 150,
     align: 'right',
-    format: (value: number) => <span>{value.toString()}</span>
   },
   {
     id: 'languages',
     label: 'Languages',
-    minWidth: 170,
+    minWidth: 150,
     align: 'right',
-    format: (value?: string[]) => value ? <>{value.map(l => <span key={l}>{l}<br/></span>)}</> : <></>
+    format: (value?: string[]) => value ? <>{value.map(l => <span key={l}>{l}<br/></span>)}</> : null
   },
 ];
 
@@ -61,7 +63,7 @@ const CountryList = () => {
   const filter = useField({ type: "text", label: "search" });
   const countries = useAppSelector(state => state.countries);
 
-  const countriesToShow = countries.filter(c => c.name.toLowerCase().includes(filter.value.toLowerCase()));
+  const countriesToShow = countries.filter(c => c.name.common.toLowerCase().includes(filter.value.toLowerCase()));
 
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
@@ -77,7 +79,7 @@ const CountryList = () => {
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TextField { ...filter } variant="outlined" />
+      <TextField { ...filter } variant="outlined" style={{ marginTop: 10 }}/>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 100]}
         component="div"
@@ -107,15 +109,18 @@ const CountryList = () => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.name.common}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format(value)}
+                          {column.format ? column.format(value) : <>{value}</>}
                         </TableCell>
                       );
                     })}
+                    <TableCell>
+                      <Link to={`/${row.name.common}`}><ArrowForwardIosIcon/></Link>
+                    </TableCell>
                   </TableRow>
                 );
               })}
