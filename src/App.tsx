@@ -1,19 +1,17 @@
 import Container from "@mui/material/Container";
 
 import { useCountries } from "./hooks";
-import CountryList from "./components/CountryList";
 import { Outlet } from "react-router-dom";
+import Main from "./components/Main";
 
 const App = () => {
   useCountries();
 
   return (
-    <div id="App">
-      <Container>
-        <CountryList />
-        <Outlet />
-      </Container>
-    </div>
+    <Container id="app">
+      <Main />
+      <Outlet />
+    </Container>
   );
 };
 

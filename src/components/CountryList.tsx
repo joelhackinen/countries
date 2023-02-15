@@ -1,4 +1,4 @@
-import { useAppSelector, useField } from "../hooks";
+import { useAppSelector } from "../hooks";
 import { useState } from "react";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -7,7 +7,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
-import TextField from "@mui/material/TextField";
 import TableRow from '@mui/material/TableRow';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Flag, Name, Region } from "../types";
@@ -26,7 +25,7 @@ const columns: readonly Column[] = [
   {
     id: 'flag',
     label: 'Flag',
-    minWidth: 160,
+    minWidth: 130,
     format: (value: Flag) => <img src={value.svg} height='100' alt={value.alt}/>
   },
   {
@@ -39,31 +38,30 @@ const columns: readonly Column[] = [
   {
     id: 'region',
     label: 'Region',
-    minWidth: 150,
+    minWidth: 130,
     align: 'right',
     format: (value: Region) => <>{value.region}</>
   },
   {
     id: 'population',
     label: 'Population',
-    minWidth: 150,
+    minWidth: 130,
     align: 'right',
   },
   {
     id: 'languages',
     label: 'Languages',
-    minWidth: 150,
+    minWidth: 130,
     align: 'right',
     format: (value?: string[]) => value ? <>{value.map(l => <span key={l}>{l}<br/></span>)}</> : null
-  },
+  }
 ];
 
 
-const CountryList = () => {
-  const filter = useField({ type: "text", label: "search" });
+const CountryList = ({ filter }: { filter: string }) => {
   const countries = useAppSelector(state => state.countries);
 
-  const countriesToShow = countries.filter(c => c.name.common.toLowerCase().includes(filter.value.toLowerCase()));
+  const countriesToShow = countries.filter(c => c.name.common.toLowerCase().includes(filter.toLowerCase()));
 
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
@@ -79,7 +77,6 @@ const CountryList = () => {
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TextField { ...filter } variant="outlined" style={{ marginTop: 10 }}/>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 100]}
         component="div"
@@ -102,6 +99,7 @@ const CountryList = () => {
                   {column.label}
                 </TableCell>
               ))}
+              <TableCell/>
             </TableRow>
           </TableHead>
           <TableBody>

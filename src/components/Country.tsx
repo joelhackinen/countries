@@ -1,50 +1,9 @@
-/*
-import { ICountry } from "../types";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../hooks";
-import { useState } from "react";
-
-
-const Country = () => {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const countries = useAppSelector(state => state.countries);
-  const country = countries.find(c => c.id === id)
-
-  if (!country) {
-    navigate("/");
-    return;
-  }
-
-  const { flag, name, region, population, languages} = country;
-
-  return (
-    <tr>
-      <td><img src={flag.svg} height='100' alt={flag.alt}/></td>
-      <td>{name}</td>
-      <td>{region}</td>
-      <td>{population}</td>
-      <td>
-        {languages && "languages"}
-        {languages && 
-          <ul>
-            {Object.values(languages).map(l => <li key={l}>{l}</li>)}
-          </ul>
-        }
-      </td>
-      <td><button>Show Details</button></td>
-    </tr>
-  );
-};
-*/
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from '../hooks';
-import { ICountry } from '../types';
 
 const style = {
   // eslint-disable-next-line
@@ -60,12 +19,13 @@ const style = {
 };
 
 const Country = () => {
-  
   const { nameParam } = useParams();
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
   const countries = useAppSelector(state => state.countries);
-  const country = countries.find(c => c.name.common === nameParam) as ICountry; // safe because errorElement defined in router
+
+  const country = countries.find(c => c.name.common === nameParam);
+  if (!country) return null;
 
   const { flag, name, region, population, coordinates } = country;
 
