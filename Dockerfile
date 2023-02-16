@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY --chown=node . .
 
-ENV 8080
+ENV PORT 8080
 
 RUN npm ci --omit=dev
 
