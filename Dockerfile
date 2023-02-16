@@ -1,14 +1,17 @@
-FROM node:16.17.0-bullseye-slim AS build-stage
+FROM node:16.18.1-bullseye-slim
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY --chown=node . .
+
+ENV 8080
 
 RUN npm ci --omit=dev
 
 RUN npm run build
 
+RUN npm install -g serve
 
-FROM nginx:1.20-alpine
+USER node
 
-COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html
+CMD ["serve", "build"]
