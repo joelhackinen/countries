@@ -1,5 +1,6 @@
 Deployed [here](https://lively-sky-3924.fly.dev/)
 
+
 ## Project description
 The task was to build a frontend application which displays the data fetched from [restcountries](https://restcountries.com/v3.1/all) API.
 The app displays the countries with pagination chosen by the user. Using client side routing, the app navigates the browser to url specific to a chosen country and displays its details to the user.
