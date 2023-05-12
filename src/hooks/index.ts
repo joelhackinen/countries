@@ -14,7 +14,6 @@ export const useCountries = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log("#fetch");
     dispatch(initializeCountries());
   }, []);
 };
