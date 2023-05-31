@@ -1,26 +1,8 @@
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import App from './App';
-import Country from './components/Country'
-import store from './store';
-
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: ":nameParam",
-        element: <Country />,
-      },
-    ],
-  },
-]);
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { RouterProvider } from "react-router-dom";
+import store from "./store";
+import router from "./router";
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

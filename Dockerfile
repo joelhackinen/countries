@@ -14,4 +14,4 @@ RUN npm install -g serve
 
 USER node
 
-CMD ["serve", "build"]
+CMD ["serve", "-s", "build"]
