@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { useState } from 'react';
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAppSelector } from '../hooks';
 
 const style = {
@@ -19,12 +19,17 @@ const style = {
 };
 
 const Country = () => {
-  const { nameParam } = useParams();
+  const nameParam = useLoaderData() as string;
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
   const countries = useAppSelector(state => state.countries);
 
   const country = countries.find(c => c.name.common === nameParam);
+
+  useEffect(() => {
+    if (!country) navigate("/");
+  }, []);
+
   if (!country) return null;
 
   const { flag, name, region, population, coordinates } = country;
@@ -32,6 +37,7 @@ const Country = () => {
   const handleClose = () => {
     setOpen(false);
     navigate("/");
+    return null;
   };
 
   return (
