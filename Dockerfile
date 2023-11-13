@@ -17,4 +17,4 @@ COPY --from=build-stage /usr/src/app/build build
 
 RUN npm install -g serve
 
-CMD ["serve", "-s", "build", "-l", "80"]
+CMD ["serve", "-s", "build", "-l", "8080"]
