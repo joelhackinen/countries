@@ -9,12 +9,8 @@ RUN npm ci --silent
 RUN npm run build
 
 
-FROM node:16.18.1-bullseye-slim
+FROM nginx:1.24.0-alpine
 
-WORKDIR /usr/src/app
+COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html
 
-COPY --from=build-stage /usr/src/app/build build
-
-RUN npm install -g serve
-
-CMD ["serve", "-s", "build", "-l", "8080"]
+COPY nginx.conf /etc/nginx/conf.d/default.conf

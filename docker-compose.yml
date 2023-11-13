@@ -6,5 +6,5 @@ services:
     build:
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8080:80"
     container_name: countries-container
