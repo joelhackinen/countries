@@ -1,17 +1,20 @@
+FROM node:16.18.1-bullseye-slim AS build-stage
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN npm ci --silent
+
+RUN npm run build
+
+
 FROM node:16.18.1-bullseye-slim
 
 WORKDIR /usr/src/app
 
-COPY --chown=node . .
-
-ENV PORT 8080
-
-RUN npm ci --omit=dev
-
-RUN npm run build
+COPY --from=build-stage /usr/src/app/build build
 
 RUN npm install -g serve
 
-USER node
-
-CMD ["serve", "-s", "build"]
+CMD ["serve", "-s", "build", "-l", "80"]

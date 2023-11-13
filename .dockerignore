@@ -3,4 +3,8 @@ node_modules
 Dockerfile
 .git
 .gitignore
+.github
+.eslintrc
+docker-compose.yml
+fly.toml
 README.md

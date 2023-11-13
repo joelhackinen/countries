@@ -1,0 +1,10 @@
+version: "3.4"
+
+services:
+  countries-app:
+    image: countries-image
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    container_name: countries-container

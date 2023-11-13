@@ -1,67 +1,80 @@
 import { useAppSelector } from "../hooks";
 import { useState } from "react";
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Flag, Name, Region } from "../types";
 import { Link } from "react-router-dom";
 
 interface Column {
-  id: 'flag' | 'name' | 'region' | 'population' | 'languages';
+  id: "flag" | "name" | "region" | "population" | "languages";
   label: string;
   minWidth?: number;
-  align?: 'right';
+  align?: "right";
   // eslint-disable-next-line
   format?: (value: any) => JSX.Element | null;
 }
 
 const columns: readonly Column[] = [
   {
-    id: 'flag',
-    label: 'Flag',
+    id: "flag",
+    label: "Flag",
     minWidth: 130,
-    format: (value: Flag) => <img src={value.svg} height='100' alt={value.alt}/>
+    format: (value: Flag) => (
+      <img src={value.svg} height="100" alt={value.alt} />
+    ),
   },
   {
-    id: 'name',
-    label: 'Name',
+    id: "name",
+    label: "Name",
     minWidth: 80,
     align: "right",
-    format: (value: Name) => <>{value.common}</>
+    format: (value: Name) => <>{value.common}</>,
   },
   {
-    id: 'region',
-    label: 'Region',
+    id: "region",
+    label: "Region",
     minWidth: 130,
-    align: 'right',
-    format: (value: Region) => <>{value.region}</>
+    align: "right",
+    format: (value: Region) => <>{value.region}</>,
   },
   {
-    id: 'population',
-    label: 'Population',
+    id: "population",
+    label: "Population",
     minWidth: 130,
-    align: 'right',
+    align: "right",
   },
   {
-    id: 'languages',
-    label: 'Languages',
+    id: "languages",
+    label: "Languages",
     minWidth: 130,
-    align: 'right',
-    format: (value?: string[]) => value ? <>{value.map(l => <span key={l}>{l}<br/></span>)}</> : null
-  }
+    align: "right",
+    format: (value?: string[]) =>
+      value ? (
+        <>
+          {value.map((l) => (
+            <span key={l}>
+              {l}
+              <br />
+            </span>
+          ))}
+        </>
+      ) : null,
+  },
 ];
 
-
 const CountryList = ({ filter }: { filter: string }) => {
-  const countries = useAppSelector(state => state.countries);
+  const countries = useAppSelector((state) => state.countries);
 
-  const countriesToShow = countries.filter(c => c.name.common.toLowerCase().includes(filter.toLowerCase()));
+  const countriesToShow = countries.filter((c) =>
+    c.name.common.toLowerCase().includes(filter.toLowerCase()),
+  );
 
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
@@ -70,13 +83,15 @@ const CountryList = ({ filter }: { filter: string }) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 100]}
         component="div"
@@ -86,7 +101,7 @@ const CountryList = ({ filter }: { filter: string }) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      <TableContainer sx={{ maxHeight: "80vh"}}>
+      <TableContainer sx={{ maxHeight: "80vh" }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -99,7 +114,7 @@ const CountryList = ({ filter }: { filter: string }) => {
                   {column.label}
                 </TableCell>
               ))}
-              <TableCell/>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -107,7 +122,12 @@ const CountryList = ({ filter }: { filter: string }) => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.name.common}>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.name.common}
+                  >
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
@@ -117,7 +137,9 @@ const CountryList = ({ filter }: { filter: string }) => {
                       );
                     })}
                     <TableCell>
-                      <Link to={`/${row.name.common}`}><ArrowForwardIosIcon/></Link>
+                      <Link to={`/${row.name.common}`}>
+                        <ArrowForwardIosIcon />
+                      </Link>
                     </TableCell>
                   </TableRow>
                 );

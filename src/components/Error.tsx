@@ -1,32 +1,33 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import WarningIcon from '@mui/icons-material/Warning';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import WarningIcon from "@mui/icons-material/Warning";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const style = {
   // eslint-disable-next-line
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
 const Error = () => {
-  console.log("renmder");
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       navigate("/");
     }, 2500);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

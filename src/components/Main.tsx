@@ -3,7 +3,7 @@ import CountryList from "./CountryList";
 import MenuBar from "./MenuBar";
 
 const Main = () => {
-  const { value: filter, onChange} = useField({ type: "text" });
+  const { value: filter, onChange } = useField({ type: "text" });
   return (
     <div id="main">
       <MenuBar handleSearch={onChange} />
