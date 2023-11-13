@@ -7,9 +7,19 @@ The app displays the countries with pagination chosen by the user. Using client 
 
 ## Run locally
 
-1. clone the repository with `git clone https://github.com/joelhackinen/countries.git`
-2. run `npm install`
-3. run `npm start`
+1. `git clone https://github.com/joelhackinen/countries.git`
+2. `cd countries`
+
+### ... with Docker
+
+3. `docker compose up`
+4. exposed at `http://localhost:8080`
+
+### ... with npm
+
+3. `npm install`
+4. `npm start`
+5. exposed at `http://localhost:3000`
 
 ## Technologies used
 
