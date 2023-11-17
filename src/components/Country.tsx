@@ -57,7 +57,7 @@ const Country = () => {
             <br />
             Located at the {Math.abs(coordinates.lat)}{" "}
             {coordinates.lat >= 0 ? "N" : "S"} and {Math.abs(coordinates.lng)}{" "}
-            {coordinates.lat >= 0 ? "W" : "E"}, this country has a population of{" "}
+            {coordinates.lng >= 0 ? "E" : "W"}, this country has a population of{" "}
             {population}.
           </Typography>
         </Box>
