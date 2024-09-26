@@ -12,14 +12,14 @@ The app displays the countries with pagination chosen by the user. Using client 
 
 ### ... with Docker
 
-3. `docker compose up`
+3. `docker compose up -d --build`
 4. exposed at `http://localhost:8080`
 
 ### ... with npm
 
-3. `npm install`
-4. `npm start`
-5. exposed at `http://localhost:3000`
+3. `npm ci`
+4. `npm run dev`
+5. exposed at `http://localhost:8080`
 
 ## Technologies used
 
