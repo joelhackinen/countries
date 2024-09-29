@@ -29,4 +29,5 @@ The app displays the countries with pagination chosen by the user. Using client 
 - React Router (v6)
 - Material UI
 - Docker
+- NGINX for static file serving
 - GitHub Actions for deployment
